@@ -17,6 +17,7 @@ def pre_request():
 
 @views.route('/')
 def home():
+  page = request.args.get('p', 1)
   return render_template('pages/home.html')
 
 @views.route('/register', methods=['GET', 'POST'])
