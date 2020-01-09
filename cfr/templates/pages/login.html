@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <section class="section">
+    <div class="container">
+      <div class="columns">
+        <div class="column is-half-desktop is-offset-one-quarter-desktop">
+          <div class="card">
+            <div class="card-content">
+              <form method="POST">
+                <div class="field">
+                  <label class="label">Username</label>
+                  <div class="control">
+                    <input class="input" type="text" placeholder="Username" id="username" name="username" value="{{ username }}">
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label">Password</label>
+                  <div class="control">
+                    <input class="input" type="password" placeholder="Password" id="password" name="password">
+                  </div>
+                </div>
+                <div class="field is-grouped">
+                  <div class="control">
+                    <button class="button is-link" type="submit" id="submit">Login</button>
+                  </div>
+                  <div class="control">
+                    <a class="button is-link is-light" href='/'>Cancel</a>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

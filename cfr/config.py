@@ -1,5 +1,7 @@
 import os
 
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+
 ''' GENERATE SECRET KEY '''
 
 if not os.environ.get('SECRET_KEY'):
@@ -24,5 +26,5 @@ if not os.environ.get('SECRET_KEY'):
 
 class Config(object):
   SECRET_KEY = os.environ.get('SECRET_KEY') or key
-  SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URI') or 'sqlite:///{}/cfr.db'.format(os.path.dirname(os.path.abspath(__file__)))
+  SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URI') or 'sqlite:///{}/cfr.db'.format(PROJECT_DIR)
   SQLALCHEMY_TRACK_MODIFICATIONS = False
