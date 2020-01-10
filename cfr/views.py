@@ -133,15 +133,16 @@ def new_review():
     shortened_text = review[:137] + '...'
   else:
     shortened_text = review[:140]
-  
+
+  image_url = ''
+
   if 'image' in request.files:
     image = request.files['image'].read()
-    res = upload_image(image).json()
+    if image:
+      res = upload_image(image).json()
 
-    if res['status'] == 200:
-      image_url = res['data']['link']
-  else:
-    image_url = None
+      if res['status'] == 200:
+        image_url = res['data']['link']
 
   new_review = Review(
     meal=meal,
