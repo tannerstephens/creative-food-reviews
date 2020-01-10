@@ -28,3 +28,13 @@ class Config(object):
   SECRET_KEY = os.environ.get('SECRET_KEY') or key
   SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URI') or 'sqlite:///{}/cfr.db'.format(PROJECT_DIR)
   SQLALCHEMY_TRACK_MODIFICATIONS = False
+  RESTAURANTS = (
+    'Baker & Butcher',
+    'Connections Breakfast',
+    'Founders Grill',
+    'Greens & Grains',
+    'Novita',
+    'Pangea',
+    'Swad Desh',
+    'GoLite'
+  )

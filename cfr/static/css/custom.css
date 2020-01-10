@@ -5,3 +5,11 @@ html {
 .is-primary {
   background-color: #e44 !important;
 }
+
+figure.image img {
+  object-fit: cover;
+}
+
+.card {
+  height: 100%;
+}

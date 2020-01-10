@@ -3,7 +3,41 @@
 {% block content %}
   <section class="section">
     <div class="container">
+      <div class="columns is-multiline">
+        {% for review in reviews.items %}
+          <div class="column is-one-third-desktop">
+            <a href="/reviews/{{ review.id }}">
+              <div class="card">
+                <div class="card-image">
+                  <figure class="image is-4by3">
+                    <img src="{{ review.image if review.image else 'https://via.placeholder.com/300x225' }}">
+                  </figure>
+                </div>
+                <div class="card-content">
+                  <div class="media">
+                    <div class="media-content">
+                      <p class="title is-4">{{ review.meal }} - {{ review.rating }}/10</p>
+                      <p class="subtitle is-6">{{ review.source }}</p>
+                    </div>
+                  </div>
+                  
+                  <div class="content">
+                    {{ review.shortened_text }}
+                    <br>
+                    <time datetime="{{ review.date }}"></time>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+      <div>&nbsp;</div>
 
+      <nav class="pagination is-right" role="navigation" aria-label="pagination" id="pagination">
+        <a class="pagination-previous has-background-white" {{ 'disabled' if not reviews.has_prev }} href="/?p={{ reviews.prev_num }}">Previous Page</a>
+        <a class="pagination-next has-background-white" {{ 'disabled' if not reviews.has_next }} href="/?p={{ reviews.next_num }}">Next Page</a>
+      </nav>
     </div>
   </section>
 {% endblock %}

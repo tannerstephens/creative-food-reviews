@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <section class="section">
+    <div class="container">
+      <div class="card">
+        <div class="card-content">
+          <div class="columns">
+            <div class="column is-one-quarter-desktop">
+              <figure class="image is-square">
+                <img src="{{ review.image }}">
+              </figure>
+            </div>
+            <div class="column">
+              <h1 class="title">{{ review.meal }} - {{ review.rating }}/10</h1>
+              <h3 class="subtitle">{{ review.source }}</h3>
+              <p>{{ review.text }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
