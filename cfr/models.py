@@ -19,3 +19,12 @@ class Review(db.Model):
   source = db.Column(db.String(50))
   date = db.Column(db.DateTime)
   user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+  def as_dict(self):
+    return dict(
+      meal=self.meal,
+      text=self.text,
+      rating=self.rating,
+      date=self.date,
+      image=self.image
+    )
