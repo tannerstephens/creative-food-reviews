@@ -12,21 +12,26 @@
               </figure>
             </div>
             <div class="column">
-              <h1 class="title">{{ review.meal }} - {{ review.rating }}/10</h1>
+              <h1 class="title">
+                {{ review.meal }} - {{ review.rating }}/10
+                {% if user_id == request.user.id %}
+                  <a class="button is-link" href="/reviews/{{ review.id }}/edit" style="float: right; font-weight: 400;">Edit Review</a>
+                {% endif %}
+              </h1>
               <h3 class="subtitle">{{ review.source }}</h3>
               <p>{{ review.text }}</p>
             </div>
           </div>
         </div>
       </div>
-      {% if user_id == request.user.id %}
+      
         <div>&nbsp;</div>
         <div class="columns">
           <div class="column is-one-fifth-desktop is-offset-four-fifths-desktop">
-            <a class="button is-link is-fullwidth" href="/reviews/{{ review.id }}/edit">Edit</a>
+            
           </div>
         </div>
-      {% endif %}
+      
     </div>
   </section>
 {% endblock %}
