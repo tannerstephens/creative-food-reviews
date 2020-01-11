@@ -7,140 +7,136 @@
 {% block content %}
   <section class="section">
     <div class="container">
-      <div class="columns">
-        <div class="column is-10-desktop is-offset-1-desktop">
-          <div class="card">
-            <div class="card-content">
-              <form method="POST" enctype="multipart/form-data">
-                <div class="field is-horizontal">
-                  <div class="field-label is-normal">
-                    <label class="label">Meal Name <span class="has-text-danger">*</span></label>
-                  </div>
-                  <div class="field-body">
-                    <div class="field has-addons">
-                      <p class="control is-expanded">
-                        <input class="input" type="text" name="meal" placeholder="Meal Name" value="{{ meal }}" id="meal">
-                      </p>
-                      <p class="control">
-                        <a class="button is-static is-danger" id="mealchar">
-                          0/100
-                        </a>
-                      </p>
-                    </div>
-                  </div>
+      <div class="card">
+        <div class="card-content">
+          <form method="POST" enctype="multipart/form-data">
+            <div class="field is-horizontal">
+              <div class="field-label is-normal">
+                <label class="label">Meal Name <span class="has-text-danger">*</span></label>
+              </div>
+              <div class="field-body">
+                <div class="field has-addons">
+                  <p class="control is-expanded">
+                    <input class="input" type="text" name="meal" placeholder="Meal Name" value="{{ meal }}" id="meal">
+                  </p>
+                  <p class="control">
+                    <a class="button is-static is-danger" id="mealchar">
+                      0/100
+                    </a>
+                  </p>
                 </div>
-
-                <div class="field is-horizontal">
-                  <div class="field-label is-normal">
-                    <label class="label">Meal Source <span class="has-text-danger">*</span></label>
-                  </div>
-                  <div class="field-body">
-                    <div class="field">
-                      <p class="control is-expanded">
-                        <div class="select is-fullwidth">
-                          <select name="source" id="source">
-                            <option value="">-- Select a source --</option>
-                            {% for restaurant in restaurants %}
-                              <option value="{{ restaurant }}" {{ 'selected' if restaurant == source else '' }}>{{ restaurant }}</option>
-                            {% endfor %}
-                            <option value="other" {{ 'selected' if 'other' == source else '' }}>Other</option>
-                          </select>
-                        </div>
-                      </p>
-                    </div>
-                    <div class="field has-addons">
-                      <p class="control is-expanded">
-                        <input class="input" id="other" type="text" name="other_source" placeholder="Other Source" value="{{ other_source }}" {{ 'disabled' if selected_restaurant != 'other' }}>
-                      </p>
-                      <p class="control">
-                        <a class="button is-static" id="sourcechar">
-                          0/50
-                        </a>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-
-                <div class="field is-horizontal">
-                  <div class="field-label is-normal">
-                    <label class="label">Review <span class="has-text-danger">*</span></label>
-                  </div>
-                  <div class="field-body">
-                    <div class="field">
-                      <p class="control is-expanded">
-                        <textarea class="textarea" type="text" name="review" placeholder="Write your review here" id="review">{{ review }}</textarea>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="field is-horizontal">
-                  <div class="field-label">
-                    <label class="label">Rating <span class="has-text-danger">*</span></label>
-                  </div>
-                  <div class="field-body">
-                    <div class="field">
-                      <div class="field has-addons">
-                        <p class="control">
-                          <input class="input" type="text" placeholder="Rating out of 10" name="rating" value="{{ rating }}" id="rating">
-                        </p>
-                        <p class="control">
-                          <a class="button is-static">
-                            /10
-                          </a>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="field is-horizontal">
-                  <div class="field-label is-normal">
-                    <label class="label">Meal Image</label>
-                  </div>
-                  <div class="field-body">
-                    <div class="field is-narrow">
-                      <div class="control">
-                        <div class="file has-name">
-                          <label class="file-label">
-                            <input class="file-input" type="file" name="image" id="file" accept="image/*">
-                            <span class="file-cta">
-                              <span class="file-icon">
-                                <i class="fas fa-upload"></i>
-                              </span>
-                              <span class="file-label" id="fileLabel">
-                                Choose a file…
-                              </span>
-                            </span>
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                <div class="field is-horizontal">
-                  <div class="field-label">
-                  </div>
-                  <div class="field-body">
-                    <div class="field is-grouped">
-                      <p class="control">
-                        <button class="button is-link" type="submit" id="submit">
-                          Submit Review
-                        </button>
-                      </p>
-                      <p class="control">
-                        <a class="button is-light" href="/">
-                          Cancel
-                        </a>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </form>
+              </div>
             </div>
-          </div>
+
+            <div class="field is-horizontal">
+              <div class="field-label is-normal">
+                <label class="label">Meal Source <span class="has-text-danger">*</span></label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <p class="control is-expanded">
+                    <div class="select is-fullwidth">
+                      <select name="source" id="source">
+                        <option value="">-- Select a source --</option>
+                        {% for restaurant in restaurants %}
+                          <option value="{{ restaurant }}" {{ 'selected' if restaurant == source else '' }}>{{ restaurant }}</option>
+                        {% endfor %}
+                        <option value="other" {{ 'selected' if 'other' == source else '' }}>Other</option>
+                      </select>
+                    </div>
+                  </p>
+                </div>
+                <div class="field has-addons">
+                  <p class="control is-expanded">
+                    <input class="input" id="other" type="text" name="other_source" placeholder="Other Source" value="{{ other_source }}" {{ 'disabled' if selected_restaurant != 'other' }}>
+                  </p>
+                  <p class="control">
+                    <a class="button is-static" id="sourcechar">
+                      0/50
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="field is-horizontal">
+              <div class="field-label is-normal">
+                <label class="label">Review <span class="has-text-danger">*</span></label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <p class="control is-expanded">
+                    <textarea class="textarea" type="text" name="review" placeholder="Write your review here" id="review">{{ review }}</textarea>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="field is-horizontal">
+              <div class="field-label">
+                <label class="label">Rating <span class="has-text-danger">*</span></label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <div class="field has-addons">
+                    <p class="control">
+                      <input class="input" type="text" placeholder="Rating out of 10" name="rating" value="{{ rating }}" id="rating">
+                    </p>
+                    <p class="control">
+                      <a class="button is-static">
+                        /10
+                      </a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="field is-horizontal">
+              <div class="field-label is-normal">
+                <label class="label">Meal Image</label>
+              </div>
+              <div class="field-body">
+                <div class="field is-narrow">
+                  <div class="control">
+                    <div class="file has-name">
+                      <label class="file-label">
+                        <input class="file-input" type="file" name="image" id="file" accept="image/*">
+                        <span class="file-cta">
+                          <span class="file-icon">
+                            <i class="fas fa-upload"></i>
+                          </span>
+                          <span class="file-label" id="fileLabel">
+                            Choose a file…
+                          </span>
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="field is-horizontal">
+              <div class="field-label">
+              </div>
+              <div class="field-body">
+                <div class="field is-grouped">
+                  <p class="control">
+                    <button class="button is-link" type="submit" id="submit">
+                      Submit Review
+                    </button>
+                  </p>
+                  <p class="control">
+                    <a class="button is-light" href="/">
+                      Cancel
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>

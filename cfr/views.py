@@ -75,28 +75,12 @@ def logout():
   session.clear()
   return redirect(url_for('views.home'))
 
-@views.route('/reviews/<int:id>')
-def show_review(id):
-  review = Review.query.filter_by(id=id).first()
-
-  if not review:
-    return redirect(url_for('views.home'))
-
-  return render_template('pages/review.html', review=review)
-
-@views.route('/new', methods=['GET', 'POST'])
-def new_review():
-  if not request.user:
-    return redirect(url_for('views.home'))
-
-  if request.method == 'GET':
-    return render_template('pages/edit_review.html')
-
+def create_or_update_review(review=None):
   meal = request.form.get('meal', '')
   source = request.form.get('source', '')
   other_source = request.form.get('other_source', '')
 
-  review = request.form.get('review', '')
+  text = request.form.get('review', '')
   rating = request.form.get('rating')
 
   try:
@@ -104,12 +88,12 @@ def new_review():
   except:
     rating = ''
 
-  if not (meal and review and rating and ((source == 'other' and other_source) or (source != 'other' and source))):
+  if not (meal and text and rating and ((source == 'other' and other_source) or (source != 'other' and source))):
     flash('Error submitting review. Verify all required fields are filled.', 'danger')
     return render_template('pages/edit_review.html',
       meal=meal,
       source=source,
-      review=review,
+      review=text,
       other_source=other_source,
       rating=rating
     )
@@ -119,7 +103,7 @@ def new_review():
     return render_template('pages/edit_review.html',
       meal=meal,
       source=source,
-      review=review,
+      review=text,
       other_source=other_source,
       rating=rating
     )
@@ -127,12 +111,10 @@ def new_review():
   if source == 'other':
     source = other_source
 
-  date = datetime.datetime.now()
-
-  if len(review) > 140:
-    shortened_text = review[:137] + '...'
+  if len(text) > 140:
+    shortened_text = text[:137] + '...'
   else:
-    shortened_text = review[:140]
+    shortened_text = text[:140]
 
   image_url = ''
 
@@ -144,18 +126,68 @@ def new_review():
       if res['status'] == 200:
         image_url = res['data']['link']
 
-  new_review = Review(
-    meal=meal,
-    source=source,
-    rating=rating,
-    text=review,
-    date=date,
-    shortened_text=shortened_text,
-    user=request.user,
-    image=image_url
-  )
+  if review == None:
+    review = Review(
+      date=datetime.datetime.now(),
+      user=request.user
+    )
 
-  db.session.add(new_review)
+  review.meal = meal
+  review.source = source
+  review.rating = rating
+  review.text = text
+  review.shortened_text = shortened_text
+  review.image = image_url
+
+  db.session.add(review)
   db.session.commit()
 
   return redirect(url_for('views.home'))
+
+
+@views.route('/reviews/<int:id>/edit', methods=['GET', 'POST'])
+def edit_review(id):
+  review = Review.query.filter_by(id=id).first()
+
+  if not review:
+    return redirect(url_for('views.home'))
+
+  if request.method == 'GET':
+    source = review.source
+    other_source = ''
+
+    if review.source not in current_app.config.get('RESTAURANTS', []):
+      source = 'other'
+      other_source = review.source
+
+    return render_template('pages/edit_review.html',
+      meal=review.meal,
+      source=source,
+      review=review.text,
+      other_source=other_source,
+      rating=review.rating
+    )
+
+  return create_or_update_review(review)
+
+@views.route('/reviews/<int:id>')
+def show_review(id):
+  review = Review.query.filter_by(id=id).first()
+
+  if not review:
+    return redirect(url_for('views.home'))
+
+  return render_template('pages/review.html', review=review, user_id=review.user.id)
+
+@views.route('/new', methods=['GET', 'POST'])
+def new_review():
+  if not request.user:
+    return redirect(url_for('views.home'))
+
+  if request.method == 'GET':
+    return render_template('pages/edit_review.html')
+
+  
+  return create_or_update_review()
+
+  

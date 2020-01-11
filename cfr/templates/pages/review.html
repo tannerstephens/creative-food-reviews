@@ -19,6 +19,14 @@
           </div>
         </div>
       </div>
+      {% if user_id == request.user.id %}
+        <div>&nbsp;</div>
+        <div class="columns">
+          <div class="column is-one-fifth-desktop is-offset-four-fifths-desktop">
+            <a class="button is-link is-fullwidth" href="/reviews/{{ review.id }}/edit">Edit</a>
+          </div>
+        </div>
+      {% endif %}
     </div>
   </section>
 {% endblock %}
