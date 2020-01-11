@@ -35,8 +35,8 @@
       <div>&nbsp;</div>
 
       <nav class="pagination is-right" role="navigation" aria-label="pagination" id="pagination">
-        <a class="pagination-previous has-background-white" {{ 'disabled' if not reviews.has_prev }} href="/?p={{ reviews.prev_num }}">Previous Page</a>
-        <a class="pagination-next has-background-white" {{ 'disabled' if not reviews.has_next }} href="/?p={{ reviews.next_num }}">Next Page</a>
+        <a class="pagination-previous has-background-white" {{ 'disabled' if not reviews.has_prev else 'href=/?p=' + reviews.prev_num|string }}>Previous Page</a>
+        <a class="pagination-next has-background-white" {{ 'disabled' if not reviews.has_next else 'href=/?p=' + reviews.next_num|string }}>Next Page</a>
       </nav>
     </div>
   </section>
