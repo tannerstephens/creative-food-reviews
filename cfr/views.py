@@ -137,7 +137,7 @@ def create_or_update_review(review=None):
   review.rating = rating
   review.text = text
   review.shortened_text = shortened_text
-  review.image = image_url
+  review.image = image_url or review.image
 
   db.session.add(review)
   db.session.commit()
