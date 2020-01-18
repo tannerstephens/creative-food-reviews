@@ -34,13 +34,16 @@ def home():
 
 @views.route('/register', methods=['GET', 'POST'])
 def register():
+  if request.user:
+    return redirect(url_for('views.home'))
+
   if request.method == 'GET':
     return render_template('pages/register.html')
   
-  username = request.form.get('username')
+  username = request.form.get('username', '').lower()
   password = request.form.get('password')
 
-  if not User.query.filter_by(username=username).first():
+  if not User.query.filter(User.username.ilike(username)).first():
     password_hash = bcrypt.generate_password_hash(password)
     user = User(username=username, password_hash=password_hash)
     db.session.add(user)
@@ -60,7 +63,7 @@ def login():
   username = request.form.get('username')
   password = request.form.get('password')
 
-  user = User.query.filter_by(username=username).first()
+  user = User.query.filter(User.username.ilike(username)).first()
 
   if user and bcrypt.check_password_hash(user.password_hash, password):
     session['user_id'] = user.id
