@@ -91,7 +91,7 @@ def create_or_update_review(review=None):
   except:
     rating = ''
 
-  if not (meal and text and rating and ((source == 'other' and other_source) or (source != 'other' and source))):
+  if not (meal and text and (rating is not False) and ((source == 'other' and other_source) or (source != 'other' and source))):
     flash('Error submitting review. Verify all required fields are filled.', 'danger')
     return render_template('pages/edit_review.html',
       meal=meal,

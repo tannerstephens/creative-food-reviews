@@ -1,3 +1,4 @@
 .secret_key
 *.db
 imgur.ini
+.vscode
