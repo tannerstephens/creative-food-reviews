@@ -14,6 +14,7 @@ window.onload = function() {
 
     const mealSourceGood = ( mealSource.value !== 'other' && mealSource.value.length) ? true : otherSource.value.length;
     const reviewGood = review.value.length;
+    // doesnt work for some reason
     const r = parseFloat(rating.value);
     const ratingGood = (r >= 0 && r <= 10);
     const mealNameGood = mealName.value.length;
