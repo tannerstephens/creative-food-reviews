@@ -25,7 +25,6 @@ def pre_request():
 
 @views.route('/')
 def home():
-  upload_image(None)
   page = int(request.args.get('p', 1))
 
   reviews = Review.query.order_by(Review.date.desc()).paginate(page, 6)
@@ -39,7 +38,7 @@ def register():
 
   if request.method == 'GET':
     return render_template('pages/register.html')
-  
+
   username = request.form.get('username', '').lower()
   password = request.form.get('password')
 
@@ -52,7 +51,7 @@ def register():
     return redirect(url_for('views.home'))
 
   flash('An error occured during registration, please try again', 'danger')
-  
+
   return render_template('pages/register.html', username=username)
 
 @views.route('/login', methods=['GET', 'POST'])
@@ -70,7 +69,7 @@ def login():
     return redirect(url_for('views.home'))
 
   flash('Username or password incorrect', 'danger')
-  
+
   return render_template('pages/login.html')
 
 @views.route('/logout')
@@ -190,7 +189,5 @@ def new_review():
   if request.method == 'GET':
     return render_template('pages/edit_review.html')
 
-  
-  return create_or_update_review()
 
-  
+  return create_or_update_review()

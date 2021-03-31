@@ -2,6 +2,7 @@ import requests
 import configparser
 from os import path
 from pathlib import Path
+from base64 import b64encode
 
 config_file = str(Path(path.dirname(path.abspath(__file__))).parent) + '/imgur.ini'
 
@@ -13,6 +14,6 @@ client_secret = config['IMGUR']['client_secret']
 
 def upload_image(data):
   headers = {'Authorization' : 'Client-ID {}'.format(client_id)}
-  form = {'image' : data}
+  form = {'image' : b64encode(data), 'type': 'base64'}
 
   return requests.post('https://api.imgur.com/3/upload', data=form, headers=headers)
